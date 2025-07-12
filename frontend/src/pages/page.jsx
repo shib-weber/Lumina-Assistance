@@ -33,6 +33,7 @@
         console.log(err)
         setMessages(prev => [...prev, { sender: "bot", text: "Something went wrong." }]);
     }
+    
 
     setInput("");
     };
