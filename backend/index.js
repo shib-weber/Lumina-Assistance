@@ -12,6 +12,10 @@
     const manager = new NlpManager({ languages: ['en'] });
     manager.load('model.nlp');
 
+    app.get('/',(req,res)=>{
+        res.send('Server Is Active')
+    })
+
     app.post('/chat', async (req, res) => {
     const { message } = req.body;
     const response = await manager.process('en', message);
