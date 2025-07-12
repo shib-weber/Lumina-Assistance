@@ -1,0 +1,501 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "forceNER": true,
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "hii": {
+            "intent": "bot.greeting",
+            "domain": "default"
+          },
+          "hello": {
+            "intent": "bot.greeting",
+            "domain": "default"
+          },
+          "is,name,what,your": {
+            "intent": "bot.name",
+            "domain": "default"
+          },
+          "creat,who,you": {
+            "intent": "bot.creator",
+            "domain": "default"
+          },
+          "about,me,shibjyoti,tell": {
+            "intent": "user.bio",
+            "domain": "default"
+          },
+          "are,is,shibjyoti,skill,what": {
+            "intent": "user.skills",
+            "domain": "default"
+          },
+          "birthday,is,shibjyoti,when": {
+            "intent": "user.birthday",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "bot.greeting": "default",
+          "bot.name": "default",
+          "bot.creator": "default",
+          "user.bio": "default",
+          "user.skills": "default",
+          "user.birthday": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "Hii",
+            "intent": "bot.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "hello",
+            "intent": "bot.greeting"
+          },
+          {
+            "domain": "default",
+            "utterance": "What is your name?",
+            "intent": "bot.name"
+          },
+          {
+            "domain": "default",
+            "utterance": "Who created you?",
+            "intent": "bot.creator"
+          },
+          {
+            "domain": "default",
+            "utterance": "Tell me about Shibjyoti",
+            "intent": "user.bio"
+          },
+          {
+            "domain": "default",
+            "utterance": "What are Shibjyoti's skills?",
+            "intent": "user.skills"
+          },
+          {
+            "domain": "default",
+            "utterance": "When is Shibjyoti's birthday?",
+            "intent": "user.birthday"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "hii": 1,
+              "hello": 1,
+              "what": 1,
+              "is": 1,
+              "your": 1,
+              "name": 1,
+              "who": 1,
+              "creat": 1,
+              "you": 1,
+              "tell": 1,
+              "me": 1,
+              "about": 1,
+              "shibjyoti": 1,
+              "are": 1,
+              "skill": 1,
+              "when": 1,
+              "birthday": 1
+            },
+            "intents": {
+              "bot.greeting": 1,
+              "bot.name": 1,
+              "bot.creator": 1,
+              "user.bio": 1,
+              "user.skills": 1,
+              "user.birthday": 1
+            },
+            "intentFeatures": {
+              "bot.greeting": {
+                "hii": 1,
+                "hello": 1
+              },
+              "bot.name": {
+                "what": 1,
+                "is": 1,
+                "your": 1,
+                "name": 1
+              },
+              "bot.creator": {
+                "who": 1,
+                "creat": 1,
+                "you": 1
+              },
+              "user.bio": {
+                "tell": 1,
+                "me": 1,
+                "about": 1,
+                "shibjyoti": 1
+              },
+              "user.skills": {
+                "what": 1,
+                "are": 1,
+                "shibjyoti": 1,
+                "is": 1,
+                "skill": 1
+              },
+              "user.birthday": {
+                "when": 1,
+                "is": 1,
+                "shibjyoti": 1,
+                "birthday": 1
+              }
+            },
+            "featuresToIntent": {
+              "hii": [
+                "bot.greeting"
+              ],
+              "hello": [
+                "bot.greeting"
+              ],
+              "what": [
+                "bot.name",
+                "user.skills"
+              ],
+              "is": [
+                "bot.name",
+                "user.skills",
+                "user.birthday"
+              ],
+              "your": [
+                "bot.name"
+              ],
+              "name": [
+                "bot.name"
+              ],
+              "who": [
+                "bot.creator"
+              ],
+              "creat": [
+                "bot.creator"
+              ],
+              "you": [
+                "bot.creator"
+              ],
+              "tell": [
+                "user.bio"
+              ],
+              "me": [
+                "user.bio"
+              ],
+              "about": [
+                "user.bio"
+              ],
+              "shibjyoti": [
+                "user.bio",
+                "user.skills",
+                "user.birthday"
+              ],
+              "are": [
+                "user.skills"
+              ],
+              "skill": [
+                "user.skills"
+              ],
+              "when": [
+                "user.birthday"
+              ],
+              "birthday": [
+                "user.birthday"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "hii",
+                "hello",
+                "what",
+                "is",
+                "your",
+                "name",
+                "who",
+                "creat",
+                "you",
+                "tell",
+                "me",
+                "about",
+                "shibjyoti",
+                "are",
+                "skill",
+                "when",
+                "birthday"
+              ],
+              "intents": [
+                "bot.greeting",
+                "bot.name",
+                "bot.creator",
+                "user.bio",
+                "user.skills",
+                "user.birthday"
+              ],
+              "perceptrons": [
+                [
+                  8.212556838989258,
+                  8.269800186157227,
+                  -1.366307258605957,
+                  -2.0898489952087402,
+                  -1.1128102540969849,
+                  -1.1128102540969849,
+                  -1.8766118288040161,
+                  -1.8766118288040161,
+                  -1.8766118288040161,
+                  -1.173700213432312,
+                  -1.173700213432312,
+                  -1.173700213432312,
+                  -2.1510655879974365,
+                  -0.2341093122959137,
+                  -0.2341093122959137,
+                  -0.7179832458496094,
+                  -0.7179832458496094,
+                  5.700178160256116
+                ],
+                [
+                  -0.46807989478111267,
+                  -0.46176740527153015,
+                  2.7439534664154053,
+                  2.260383129119873,
+                  4.394208908081055,
+                  4.394208908081055,
+                  -0.23419073224067688,
+                  -0.23419073224067688,
+                  -0.23419073224067688,
+                  -0.0796930119395256,
+                  -0.0796930119395256,
+                  -0.0796930119395256,
+                  -2.224925994873047,
+                  -1.6419657468795776,
+                  -1.6419657468795776,
+                  -0.4464281499385834,
+                  -0.4464281499385834,
+                  0.4902466495463665
+                ],
+                [
+                  -0.8998008966445923,
+                  -0.8875921964645386,
+                  -0.33210989832878113,
+                  -0.498087078332901,
+                  -0.19367295503616333,
+                  -0.19367295503616333,
+                  4.444141387939453,
+                  4.444141387939453,
+                  4.444141387939453,
+                  -0.25339776277542114,
+                  -0.25339776277542114,
+                  -0.25339776277542114,
+                  -0.5634447932243347,
+                  -0.11696463823318481,
+                  -0.11696463823318481,
+                  -0.15161415934562683,
+                  -0.15161415934562683,
+                  0.9382648036425989
+                ],
+                [
+                  -0.5156233310699463,
+                  -0.5092586874961853,
+                  -0.6380915641784668,
+                  -1.4588820934295654,
+                  -0.017382318153977394,
+                  -0.017382318153977394,
+                  -0.2251330316066742,
+                  -0.2251330316066742,
+                  -0.2251330316066742,
+                  3.8011202812194824,
+                  3.8011202812194824,
+                  3.8011202812194824,
+                  2.3473994731903076,
+                  -0.6132996082305908,
+                  -0.6132996082305908,
+                  -0.7836450934410095,
+                  -0.7836450934410095,
+                  0.5306039086806862
+                ],
+                [
+                  -0.14401787519454956,
+                  -0.1477164477109909,
+                  2.556828498840332,
+                  1.0172207355499268,
+                  -1.767370581626892,
+                  -1.767370581626892,
+                  -0.07414551079273224,
+                  -0.07414551079273224,
+                  -0.07414551079273224,
+                  -0.6867814660072327,
+                  -0.6867814660072327,
+                  -0.6867814660072327,
+                  2.0983028411865234,
+                  4.324415683746338,
+                  4.324415683746338,
+                  -1.5394423007965088,
+                  -1.5394423007965088,
+                  -0.03685491066912382
+                ],
+                [
+                  -0.36335378885269165,
+                  -0.35943618416786194,
+                  -2.086987018585205,
+                  2.508446216583252,
+                  -0.552515983581543,
+                  -0.552515983581543,
+                  -0.15845978260040283,
+                  -0.15845978260040283,
+                  -0.15845978260040283,
+                  -0.8678565621376038,
+                  -0.8678565621376038,
+                  -0.8678565621376038,
+                  2.2136781215667725,
+                  -1.5066438913345337,
+                  -1.5066438913345337,
+                  4.597232341766357,
+                  4.597232341766357,
+                  0.3693434679996629
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "Hii"
+      ],
+      [
+        "en",
+        "hello"
+      ],
+      [
+        "en",
+        "What is your name?"
+      ],
+      [
+        "en",
+        "Who created you?"
+      ],
+      [
+        "en",
+        "Tell me about Shibjyoti"
+      ],
+      [
+        "en",
+        "What are Shibjyoti's skills?"
+      ],
+      [
+        "en",
+        "When is Shibjyoti's birthday?"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {
+      "en": {
+        "bot.greeting": [
+          {
+            "answer": "Hello! I am Lumina, Shibjyoti's Personal AI."
+          },
+          {
+            "answer": "Hii!, I am Lumina, Shibjyoti's Personal AI."
+          }
+        ],
+        "bot.name": [
+          {
+            "answer": "I am Lumina, Shibjyoti's Personal AI."
+          }
+        ],
+        "bot.creator": [
+          {
+            "answer": "I was created by Shibjyoti Roy Chowdhury."
+          }
+        ],
+        "user.bio": [
+          {
+            "answer": "Shibjyoti is an engineering student passionate about AI, full-stack development, and technology."
+          }
+        ],
+        "user.skills": [
+          {
+            "answer": "He is skilled in React, Node.js, MongoDB, Tailwind CSS, and more."
+          }
+        ],
+        "user.birthday": [
+          {
+            "answer": "Shibjyoti celebrates his birthday on July 12th."
+          }
+        ]
+      }
+    }
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}
