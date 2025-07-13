@@ -78,7 +78,7 @@
                 className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
                 <div
-                    className={`max-w-[80%] px-4 py-2 rounded-lg text-sm leading-relaxed shadow-md whitespace-pre-line ${msg.sender === "user"
+                    className={`max-w-[80%] px-4 py-2 text-left rounded-lg text-sm leading-relaxed shadow-md whitespace-pre-line ${msg.sender === "user"
                         ? "bg-amber-900 text-white"
                         : "bg-[#2a2a2a] text-gray-200"
                     }`}
