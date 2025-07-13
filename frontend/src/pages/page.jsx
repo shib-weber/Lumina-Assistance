@@ -4,40 +4,65 @@
     export default function ChatBot() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
+    const [isTyping, setIsTyping] = useState(false);
     const endRef = useRef(null);
-
 
     useEffect(() => {
         endRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-        const sendMessage = async () => {
-    if (!input.trim()) return;
-
-    const userMessage = { sender: "user", text: input };
-    setMessages(prev => [...prev, userMessage]);
-
-    try {
-        const res = await fetch("https://lumina-assistance.onrender.com/chat", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message: input })
+    const simulateTypingEffect = async (text, delay = 30) => {
+        let index = 0;
+        let currentText = "";
+        while (index < text.length) {
+        currentText += text[index];
+        setMessages(prev => {
+            const lastMessage = prev[prev.length - 1];
+            if (lastMessage?.sender === "bot") {
+            const updatedMessage = { ...lastMessage, text: currentText };
+            return [...prev.slice(0, -1), updatedMessage];
+            } else {
+            return [...prev, { sender: "bot", text: currentText }];
+            }
         });
-        const data = await res.json();
-
-        const botMessage = { sender: "bot", text: data.reply };
-        setMessages(prev => [...prev, botMessage]);
-    } catch (err) {
-        console.log(err)
-        setMessages(prev => [...prev, { sender: "bot", text: "Something went wrong." }]);
-    }
-    
-
-    setInput("");
+        index++;
+        await new Promise(resolve => setTimeout(resolve, delay));
+        }
     };
 
+    const sendMessage = async () => {
+        if (!input.trim()) return;
+
+        const userMessage = { sender: "user", text: input };
+        setMessages(prev => [...prev, userMessage]);
+        setInput("");
+
+        setIsTyping(true);
+
+        try {
+        const res = await fetch("https://lumina-assistance.onrender.com/chat", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: input })
+        });
+
+        const data = await res.json();
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+
+        // Add empty bot message first
+        setMessages(prev => [...prev, { sender: "bot", text: "" }]);
+
+        // Typing effect
+        await simulateTypingEffect(data.reply);
+        } catch (err) {
+        console.log(err);
+        setMessages(prev => [...prev, { sender: "bot", text: " :( Something went wrong." }]);
+        }
+
+        setIsTyping(false);
+    };
 
     return (
         <div className=" bg-[#121212] text-white h-screen  flex flex-col">
@@ -46,32 +71,37 @@
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 sm:px-8 mt-1.5 space-y-4 ">
-            {messages !='' ?
+            {messages.length > 0 ?
             messages.map((msg, idx) => (
-            <div
-                key={idx}
-                className={`flex ${
-                msg.sender === "user" ? "justify-end" : "justify-start"
-                }`}
-            >
                 <div
-                className={`max-w-[80%] px-4 py-2 rounded-lg text-sm leading-relaxed shadow-md whitespace-pre-line ${
-                    msg.sender === "user"
-                    ? "bg-amber-900 text-white"
-                    : "bg-[#2a2a2a] text-gray-200"
-                }`}
+                key={idx}
+                className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                 >
-                {msg.text}
+                <div
+                    className={`max-w-[80%] px-4 py-2 rounded-lg text-sm leading-relaxed shadow-md whitespace-pre-line ${msg.sender === "user"
+                        ? "bg-amber-900 text-white"
+                        : "bg-[#2a2a2a] text-gray-200"
+                    }`}
+                >
+                    {msg.text}
                 </div>
-            </div>
+                </div>
             )) :
             <div className="absolute top-[35%] left-[10%] h-[30%] w-[80%]  text-5xl  flex flex-col gap-3 justify-center text-center">
                 <p className="text-xl text-amber-600">Hi! I am Lumina, Shibjyoti's Personal AI Assistance</p>
                 How can I help you ?
                 <p className="text-xl">I will try to answer anything about him</p>
+            </div>
+            }
 
+            {isTyping && (
+            <div className="flex justify-start">
+                <div className="bg-[#2a2a2a] text-gray-400 px-4 py-2 rounded-lg text-sm font-mono animate-pulse">
+                Typing...
                 </div>
-        }
+            </div>
+            )}
+
             <div ref={endRef} />
         </div>
 
